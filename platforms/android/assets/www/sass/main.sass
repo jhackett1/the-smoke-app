@@ -1,0 +1,403 @@
+
+
+
+@import 'animations.sass'
+
+// Style rules
+
+// Fonts
+@font-face
+  font-family: 'Bebas Neue'
+  src: url('../fonts/bebas-neue.otf')
+@font-face
+  font-family: 'Open Sans Condensed'
+  src: url('../fonts/open-sans-condensed.ttf')
+
+// Color scheme
+$brand-red: #bb2d42
+$dark-red: #A42739
+$brand-blue: #254461
+$dark-grey: #2d2d2d
+$mid-grey: #505050
+$light-grey: #969696
+$bg-grey: #f6f6f6
+
+// Default font stacks
+$h-stack: "Bebas Neue", Oswald, sans-serif
+$p-stack: "Open Sans Condensed", Helvetica, sans-serif
+
+// Positioning resets
+*
+  margin: 0px
+  padding: 0px
+  box-sizing: border-box
+  text-rendering: optimizeLegibility
+  text-rendering: geometricPrecision
+  font-smooth: always
+
+body
+  height: 100%
+
+div.view-container
+  position: relative
+  width: 100%
+  height: 100vh
+  overflow: hidden
+  width: 100vw
+
+main
+  overflow-y: scroll
+  overflow-x: hidden
+  position: absolute
+  top: 0px
+  left: 0px
+  right: 0px
+  bottom: 70px
+  background-color: white
+  padding-top: 50px
+  z-index: 1
+  width: 100vw
+
+  div.single
+    position: absolute
+    top: 0px
+    z-index: 8
+    background-color: white
+
+
+h1, h2, h3, h4, h5
+  font-family: $h-stack
+  -webkit-font-smoothing: antialiased
+  letter-spacing: 0.3px
+
+p, li
+  font-family: $p-stack
+  font-stretch: condensed
+  font-weight: 100
+
+header
+  position: fixed
+  top: 0px
+  width: 100vw
+  z-index: 5
+  display: flex
+  justify-content: space-between
+  align-items: center
+  overflow: hidden
+  height: 40px
+  background-color: $brand-red
+  color: $bg-grey
+  box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.1)
+  a
+    color: $bg-grey
+    width: 40px
+    height: 40px
+    text-align: center
+    display: flex
+    justify-content: center
+    align-items: center
+    text-decoration: none
+    transition: 1s
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0)
+    // Flash up then slowly fade back to normal color
+    &:active
+      background-color: rgba(255,255,255,0.5)
+      transition: 0.1s
+
+
+  img
+    height: 25px
+    width: auto
+
+
+footer
+  position: fixed
+  bottom: 0px
+  width: 100vw
+  left: 0px
+  right: 0px
+  z-index: 999
+  display: flex
+  flex-direction: row
+  justify-content: flex-start
+  flex-wrap: nowrap
+  align-items: center
+  padding: 10px
+  background-color: $bg-grey
+  box-shadow: 0px -2px 2px rgba(0,0,0,0.1)
+  div#radio-image
+    height: 50px
+    width: 50px
+    background-color: #dfdfdf
+    margin-right: 10px
+    border-radius: 1px
+    background-size: cover
+    background-position: center
+  aside
+    flex: 1
+    overflow: hidden
+    h4
+      color: $mid-grey
+    p
+      display: block
+      marquee
+        color: $light-grey
+        span::before
+          content: "| "
+  button
+    height: 50px
+    width: 50px
+    border-radius: 250px
+    margin-left: 10px
+    background-color: $bg-grey
+    border: none
+    color: $mid-grey
+    outline: 0
+    box-shadow: none
+    text-align: center
+    display: flex
+    justify-content: center
+    align-items: center
+
+nav
+  z-index: 999
+  height: 100%
+  position: absolute
+  left: 0px
+  top: 0px
+  bottom: 70px
+  border: 0px
+  width: 65%
+  background-color: #efefef
+  box-shadow: 0px 2px 16px 0px rgba(0, 0, 0, 0.5)
+  display: flex
+  flex-direction: column
+  transform: translate3d(-103%, 0, 0)
+  transition: 0.2s ease-out
+  &.visible
+    transform: translate3d(0%, 0, 0)
+    transition: 0.2s ease-out
+  a.close
+    color: $light-grey
+    font-size: 1.5em
+    text-decoration: none
+    margin: 10px 10px 30px 10px
+  ul
+    li
+      font-family: $h-stack
+      text-transform: uppercase
+      font-size: 1.5em
+      -webkit-tap-highlight-color: rgba(255, 255, 255, 0)
+      a
+        display: block
+        color: $mid-grey
+        text-decoration: none
+        border-bottom: 0.5px solid #dfdfdf
+        padding: 10px 10px 5px 10px
+        transition: 1s
+        &:active
+          background-color: rgba(0,0,0,0.05)
+          transition: 0.2s
+
+
+  p
+    position: absolute
+    left: 10px
+    bottom: 80px
+    width: 100%
+    padding-right: 20px
+    color: $light-grey
+    font-size: 0.8em
+
+img#loader
+  width: 40vw
+  height: 25vw
+  text-align: center
+  margin: 0px auto
+  position: absolute
+  top: 50%
+  left: 50%
+  transform: translate(-50%, -50%)
+  z-index: 99999
+
+
+ul.post-grid.category
+  li
+    &:nth-of-type(4n), &:nth-of-type(4n+1)
+      background-color: $brand-blue
+    &:nth-of-type(5), &:nth-of-type(8), , &:nth-of-type(9)
+      background-color: white
+      border-top: 4px solid $brand-red
+      div.info
+        justify-content: flex-start
+        h2
+          color: $mid-grey
+        p
+          color: $light-grey
+      &::after
+        padding-bottom: 50%
+
+  li.category-title
+    background-color: $bg-grey
+    font-family: $h-stack
+    border-top: 4px solid $dark-grey
+    color: $mid-grey
+    font-size: 1.5em
+    h2
+      position: absolute
+      top: 5px
+      left: 5px
+ul.post-grid.home
+  li
+    &:nth-of-type(3), &:nth-of-type(6)
+      background-color: white
+      border-top: 4px solid $brand-red
+      div.info
+        justify-content: flex-start
+        h2
+          color: $mid-grey
+        p
+          color: $light-grey
+    &:nth-of-type(3n-1), &:nth-of-type(9)
+      background-color: $brand-blue
+
+ul.post-grid
+  margin: 0px 10px
+  list-style-type: none
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  li
+    position: relative
+    width: calc(50% - 5px)
+    background-color: $dark-red
+    margin-bottom: 10px
+    border-radius: 1px
+    overflow: hidden
+    &::after
+      content: ""
+      display: block
+      padding-bottom: 100%
+    &:nth-of-type(odd)
+      margin-right: 10px
+    div.featured-image
+      position: absolute
+      top: 0
+      bottom: 0
+      left: 0
+      right: 0
+      background-size: cover
+      background-position: center
+      opacity: 0.2
+      filter: grayscale(1)
+      z-index: 2
+    div.info
+      position: absolute
+      display: flex
+      flex-direction: column
+      justify-content: flex-end
+      height: 100%
+      padding: 5px
+      z-index: 3
+      color: $bg-grey
+      h2
+        font-size: 1.3em
+        line-height: 1.1em
+      p
+        font-size: 0.9em
+        font-weight: 100
+        margin-top: 1px
+        line-height: 1.2em
+    a.link
+      position: absolute
+      top: 0
+      bottom: 0
+      left: 0
+      right: 0
+      z-index: 4
+      -webkit-tap-highlight-color: rgba(255, 255, 255, 0)
+    // a.link:active
+    //   background: rgba(0,0,0,0.5)
+    //   transition: 0.1s
+    //   user-select: none
+
+
+// STYLES FOR SINGLE ARTICLE PAGE
+section.single-meta
+  margin-top: -10px
+  padding: 0px 0px 5px 0px
+  div.featured-image
+    width: 100%
+    height: 220px
+    background-size: cover
+    background-position: center
+    margin-bottom: 20px
+    animation-name: fadeIn
+    animation-duration: 0.8s
+    animation-timing-function: ease-in
+  h3
+    margin: 10px
+    color: $mid-grey
+    font-size: 2.2em
+    line-height: 1em
+    letter-spacing: 0.5px
+  h4
+    color: $light-grey
+    font-weight: 100
+    margin: 10px
+    i
+      margin-right: 5px
+article.single-content
+  width: 100%
+  hr
+    border: none
+    border-bottom: 0.5px solid #dfdfdf
+    margin: 10px
+  h1, h2, h3, h4, h5
+    margin: 10px
+    color: $mid-grey
+    font-size: 1.5em
+  p
+    font-size: 1.1em
+    margin: 0px 10px 12px 10px
+    color: $mid-grey
+  a
+    color: $brand-red
+    text-decoration: none
+  p.wp-caption-text
+    color: $light-grey
+    font-size: 0.8em
+  img
+    width: 100%
+    height: auto
+hr
+  border: none
+  border-bottom: 0.5px solid #dfdfdf
+  margin: 10px
+section.single-meta-footer
+  margin: 10px 10px 20px 10px
+  display: flex
+  flex-direction: row
+  width: 100%
+  aside
+    width: 50%
+    margin-right: 10px
+    h5
+      color: $mid-grey
+    p
+      color: $light-grey
+      text-transform: capitalize
+    ul li
+        display: inline
+        color: $light-grey
+        &::after
+          content: ", "
+        &:last-of-type::after
+          content: ''
+
+
+h2.category-title
+  margin: 10px
+  text-align: center
+  font-size: 2em
+  color: $mid-grey
