@@ -1,0 +1,93 @@
+{
+  "_args": [
+    [
+      {
+        "raw": "cordova-disable-http-cache",
+        "scope": null,
+        "escapedName": "cordova-disable-http-cache",
+        "name": "cordova-disable-http-cache",
+        "rawSpec": "",
+        "spec": "latest",
+        "type": "tag"
+      },
+      "/Users/joshua/Desktop/smoke-app-cordova/node_modules"
+    ]
+  ],
+  "_from": "cordova-disable-http-cache@latest",
+  "_id": "cordova-disable-http-cache@1.0.0",
+  "_inCache": true,
+  "_location": "/cordova-disable-http-cache",
+  "_nodeVersion": "6.9.4",
+  "_npmOperationalInternal": {
+    "host": "packages-18-east.internal.npmjs.com",
+    "tmp": "tmp/cordova-disable-http-cache-1.0.0.tgz_1487334183313_0.18157177581451833"
+  },
+  "_npmUser": {
+    "name": "koenromers",
+    "email": "info@koenromers.com"
+  },
+  "_npmVersion": "3.10.10",
+  "_phantomChildren": {},
+  "_requested": {
+    "raw": "cordova-disable-http-cache",
+    "scope": null,
+    "escapedName": "cordova-disable-http-cache",
+    "name": "cordova-disable-http-cache",
+    "rawSpec": "",
+    "spec": "latest",
+    "type": "tag"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cordova-disable-http-cache/-/cordova-disable-http-cache-1.0.0.tgz",
+  "_shasum": "04e06f0373ac654ca436be5b0a19173950daeeb9",
+  "_shrinkwrap": null,
+  "_spec": "cordova-disable-http-cache",
+  "_where": "/Users/joshua/Desktop/smoke-app-cordova/node_modules",
+  "author": {
+    "name": "Koen Romers"
+  },
+  "bugs": {
+    "url": "https://github.com/koenoe/cordova-disable-http-cache/issues"
+  },
+  "cordova": {
+    "id": "cordova-disable-http-cache",
+    "platforms": [
+      "android",
+      "ios"
+    ]
+  },
+  "dependencies": {},
+  "description": "Cordova plugin to disable caching of HTTP requests and responses.",
+  "devDependencies": {},
+  "directories": {},
+  "dist": {
+    "shasum": "04e06f0373ac654ca436be5b0a19173950daeeb9",
+    "tarball": "https://registry.npmjs.org/cordova-disable-http-cache/-/cordova-disable-http-cache-1.0.0.tgz"
+  },
+  "gitHead": "ba85bb86b2bc4607bd56d980985cfa223aa40d72",
+  "homepage": "https://github.com/koenoe/cordova-disable-http-cache#readme",
+  "keywords": [
+    "ecosystem:cordova",
+    "cordova-android",
+    "cordova-ios"
+  ],
+  "license": "MIT",
+  "maintainers": [
+    {
+      "name": "koenromers",
+      "email": "info@koenromers.com"
+    }
+  ],
+  "name": "cordova-disable-http-cache",
+  "optionalDependencies": {},
+  "readme": "ERROR: No README data found!",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/koenoe/cordova-disable-http-cache.git"
+  },
+  "scripts": {},
+  "version": "1.0.0"
+}

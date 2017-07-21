@@ -54,5 +54,13 @@
         },
         "is_top_level": false,
         "variables": {}
+    },
+    "cordova-disable-http-cache": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-disable-http-cache"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

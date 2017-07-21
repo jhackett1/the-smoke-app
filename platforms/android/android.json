@@ -61,7 +61,12 @@
             },
             "config.xml": {
                 "parents": {
-                    "/*": []
+                    "/*": [
+                        {
+                            "xml": "<feature name=\"DisableHttpCachePlugin\"><param name=\"android-package\" value=\"com.koenromers.cordova.DisableHttpCachePlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        }
+                    ]
                 }
             }
         }
@@ -86,6 +91,9 @@
             "PACKAGE_NAME": "io.cordova.hellocordova"
         },
         "cordova-plugin-x-socialsharing": {
+            "PACKAGE_NAME": "io.cordova.hellocordova"
+        },
+        "cordova-disable-http-cache": {
             "PACKAGE_NAME": "io.cordova.hellocordova"
         }
     },
@@ -145,6 +153,7 @@
         "cordova-plugin-headercolor": "1.0",
         "cordova-plugin-splashscreen": "4.0.3",
         "es6-promise-plugin": "4.1.0",
-        "cordova-plugin-x-socialsharing": "5.1.8"
+        "cordova-plugin-x-socialsharing": "5.1.8",
+        "cordova-disable-http-cache": "1.0.0"
     }
 }

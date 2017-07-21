@@ -4,27 +4,17 @@
   <title>Smoke Media</title>
   <link href="css/main.css" rel="stylesheet" type="text/css"/>
   <link href="fonts/font-awesome-4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
-
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
-
+  <!-- Main application view -->
   <div class="view-container">
     <ng-include src="'nav.html'"></ng-include>
     <main ui-view class="{{viewName}}"></main>
   </div>
-
-  <!-- Universal footer -->
-  <footer ng-controller="radioController">
-    <div id="radio-image" style="background-image:url({{radio.icon}})"></div>
-    <aside id="radio-info">
-      <h4>{{radio.title}}</h4>
-      <p><marquee>You're listening to Smoke Radio <span ng-if="radio.long_desc">{{radio.long_desc}}</span> | London's student sound</marquee></p>
-    </aside>
-    <button id="radio-control" ng-click="playPause()"><i class="fa fa-play fa-3x"></i></button>
-    <!---Media element for radio playback -->
-    <audio id="radio-audio" preload="none" src="http://streaming.radio.co/s57043ec0a/listen" type="audio/mpeg"></audio>
-  </footer>
+  
+  <!-- Footer/radio player -->
+  <ng-include src="'radio.html'"></ng-include>
   <!-- Cordova and plugins -->
   <script type="text/javascript" src="cordova.js"></script>
   <script type="text/javascript" src="/android_asset/www/plugins/cordova-plugin-music-controls/www/MusicControls.js"></script>

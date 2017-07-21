@@ -1,0 +1,10 @@
+<footer ng-controller="radioController">
+  <div id="radio-image" style="background-image:url({{radio.icon}})"></div>
+  <aside id="radio-info">
+    <h4>{{radio.title}}</h4>
+    <p><marquee>You're listening to Smoke Radio <span ng-if="radio.long_desc">{{radio.long_desc}}</span> | London's student sound</marquee></p>
+  </aside>
+  <button id="radio-control" ng-click="playPause()"><i class="fa fa-play fa-3x"></i></button>
+  <!---Media element for radio playback -->
+  <audio id="radio-audio" preload="none" src="http://streaming.radio.co/s57043ec0a/listen" type="audio/mpeg"></audio>
+</footer>

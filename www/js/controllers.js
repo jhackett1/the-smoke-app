@@ -1,7 +1,7 @@
 var smokeControllers = angular.module('smokeControllers', [])
 
 // CONTROLLERS
-.controller('homeController', function($scope, $http, wpData){
+.controller('homeController', function($scope, $http, wpData, $state){
   $scope.loading = true;
   // Call the WP service
   wpData.getPosts().then(function(posts) {
@@ -14,13 +14,14 @@ var smokeControllers = angular.module('smokeControllers', [])
     // Register swipe gestures
     swipable('main.home', openMenu, closeMenu);
     swipable('nav', null, closeMenu);
-    pullToReload('main.home', 3, $scope.reload)
+    pullReload('ul.post-grid', 'main.home', $scope.reload)
   })
   // The reload method
   $scope.reload = function(){
-    $scope.posts = null;
     $scope.loading = true;
+    $scope.posts = null;
     wpData.getPosts().then(function(posts) {
+      document.querySelector('ul.post-grid').style.transform = "translate(0px) rotate(0deg)";
       $scope.posts = posts;
       $scope.loading = false;
     });
@@ -67,13 +68,14 @@ var smokeControllers = angular.module('smokeControllers', [])
     swipable('main.category', function() {
       window.history.back();
     });
-    pullToReload('main.category', 3, $scope.reload)
+    pullReload('ul.post-grid', 'main.category', $scope.reload)
   })
   // The reload method
   $scope.reload = function(){
-    $scope.posts = null;
     $scope.loading = true;
+    $scope.posts = null;
     wpData.getCategoryPosts($stateParams.id).then(function(posts) {
+      document.querySelector('ul.post-grid').style.transform = "translate(0px)";
       $scope.posts = posts;
       $scope.loading = false;
     });
@@ -88,7 +90,6 @@ var smokeControllers = angular.module('smokeControllers', [])
     var audio = document.getElementById('radio-audio');
     var button = document.querySelector('#radio-control i');
     if (!audio.paused){
-
       audio.pause();
       // Rip out and replace the src attribute to abort the otherwise infinite download
       var tempSrc = audio.src;
@@ -142,17 +143,7 @@ var smokeControllers = angular.module('smokeControllers', [])
       // Start listening for events
       MusicControls.listen();
     };
-
-
-
-
-
-
   };
-
-
-
-
 
 
   // Function to grab metadata from radio data API

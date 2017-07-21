@@ -10,7 +10,7 @@
 <!-- <h2 >{{category}}</h2> -->
 
 <ul class="post-grid category">
-  <li class="category-title"><h2>{{category}}</h2></li>
+  <li class="category-title" ng-show="category"><h2>{{category}}</h2></li>
   <li onclick="explodeLi(this)" ng-repeat="post in posts" ng-switch="$index">
     <div ng-switch-when="3">
       <div class="info">

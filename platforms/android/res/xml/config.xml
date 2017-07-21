@@ -22,6 +22,10 @@
     <feature name="SocialSharing">
         <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
     </feature>
+    <feature name="DisableHttpCachePlugin">
+        <param name="android-package" value="com.koenromers.cordova.DisableHttpCachePlugin" />
+        <param name="onload" value="true" />
+    </feature>
     <name>Smoke Media</name>
     <description>
         Read the latest news, reviews and features from Smoke Media, and tune into Smoke Radio.

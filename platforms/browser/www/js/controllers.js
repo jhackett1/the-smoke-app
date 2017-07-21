@@ -1,7 +1,7 @@
 var smokeControllers = angular.module('smokeControllers', [])
 
 // CONTROLLERS
-.controller('homeController', function($scope, $http, wpData){
+.controller('homeController', function($scope, $http, wpData, $state){
   $scope.loading = true;
   // Call the WP service
   wpData.getPosts().then(function(posts) {

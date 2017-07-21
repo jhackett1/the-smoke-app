@@ -1,12 +1,5 @@
-if ('addEventListener' in document) {
-	document.addEventListener('DOMContentLoaded', function() {
-		FastClick.attach(document.body);
-	}, false);
-}
-
 // Define the app and get module dependencies
 var app = angular.module('app', ['ui.router', 'ngAnimate', 'ngSanitize', 'smokeControllers', 'smokeRoutes', 'smokeProviders']);
-
 
 
 // NON-ANGULAR HELPER FUNCTIONS
@@ -25,3 +18,9 @@ function goBack() {
 function explodeLi(element){
       element.style.cssText = "animation: explode 0.5s; opacity: 1 !important;";
 };
+// Fastclick
+if ('addEventListener' in document) {
+	document.addEventListener('DOMContentLoaded', function() {
+		FastClick.attach(document.body);
+	}, false);
+}

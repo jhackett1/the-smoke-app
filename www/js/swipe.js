@@ -59,39 +59,42 @@ function swipable(swipableElement, actionLeft, actionRight, actionDown, actionUp
 
 
 
-// Grab the element to become swipe sensitive, the proportion of the element's height that the user needs to cover to activate the callback, and the callback action
-function pullToReload(element, criticalPercent, callbackAction){
-  // Vars to keep track
-  var touchstartY = 0;
-  var willFire = false;
-  // Grab the DOM element
-  var draggable = document.querySelector(element);
-  // When the user touches the screen, listen up
+// PULL TO TRIGGER RELOAD
+
+function pullReload(loaderElement, draggableElement, finalAction){
+  // Get the loader
+  var loader = document.querySelector(loaderElement);
+  var draggable = document.querySelector(draggableElement);
+  // Key variable to keep track of
+  let touchStart;
+  let criticalDist = draggable.clientHeight/3;
+  // Listen out for a touch event
   draggable.addEventListener('touchstart', function(event) {
     // Record the starting position of a touch
-    touchstartY = event.touches[0].clientY;
+    touchStart = event.touches[0].clientY;
     // See if the user is swiping with the touchmove event
     draggable.addEventListener('touchmove', function(event) {
-      // If we're not at the top of the scrollable container, do nothing
-      if (draggable.scrollTop > 0){return;}
-      // Grab the touch coordinates object
+      // Record the current position of the touch
       touchPos = event.touches[0].clientY;
-      // How far must the user drag for the action to trigger, as a proportion of the element height
-      criticalDist = (draggable.clientHeight)/criticalPercent;
-      // Work out how far the user has dragged
-      if (touchPos > (touchstartY+criticalDist)) {
-        willFire = true;
-      } else {
-        willFire = false;
+      swipeDist = touchPos-touchStart;
+      // Move the loader under swipe
+      if (swipeDist < criticalDist && swipeDist > 0) {
+            loader.style.transform = "translateY(" + (swipeDist/2) + "px)"
       }
     });
-    // When the touch ends, check if the user's finger travelled far enough to trigger the callback
+    // See if the user is swiping with the touchmove event
     draggable.addEventListener('touchend', function(event) {
-      if (willFire) {
-        callbackAction();
-        // Reset the var for next time
-        willFire = false;
+      // Record the current position of the touch
+      touchPos = event.changedTouches[0].clientY;
+      swipeDist = touchPos-touchStart;
+      // If the swipe has pulled far enough, trigger the action function
+      if (swipeDist>criticalDist) {
+        finalAction();
+        draggable.removeEventListener('touchmove', arguments.callee);
+      } else {
+            loader.style.transform = "translateY(0px)"
       }
+      draggable.removeEventListener('touchend', arguments.callee);
     });
   });
 };

@@ -68,7 +68,8 @@ module.exports.metadata =
     "cordova-plugin-headercolor": "1.0",
     "cordova-plugin-splashscreen": "4.0.3",
     "es6-promise-plugin": "4.1.0",
-    "cordova-plugin-x-socialsharing": "5.1.8"
+    "cordova-plugin-x-socialsharing": "5.1.8",
+    "cordova-disable-http-cache": "1.0.0"
 }
 // BOTTOM OF METADATA
 });

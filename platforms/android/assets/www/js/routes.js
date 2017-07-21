@@ -31,5 +31,9 @@ smokeRoutes.config(function($stateProvider, $urlRouterProvider){
       url: '/category/:id',
       templateUrl: 'views/category.html',
       controller: 'categoryController',
-    });
+    })
+    .state('schedule', {
+      url: '/schedule',
+      templateUrl: 'views/schedule.html'
+    })
 })
