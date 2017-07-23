@@ -76,7 +76,7 @@ header
   position: fixed
   top: 0px
   width: 100vw
-  z-index: 5
+  z-index: 99
   display: flex
   justify-content: space-between
   align-items: center
@@ -106,25 +106,34 @@ header
     height: 25px
     width: auto
 
-// section.offline-warn
-//   position: fixed
-//   width: 100%
-//   bottom: 68px
-//   padding: 10px
-//   z-index: 99
-//   background-color: #dfdfdf
-//   box-shadow: 0px -2px 2px rgba(0,0,0,0.1)
-//   color: #505050
-//   display: flex
-//   font-size: 0.9em
-//   align-items: center
-//   justify-content: space-between
-//   transform: translate3d(0,100%,0)
-//   opacity: 0
-//   transition: 0.2s
-//   &.offline
-//     transform: translate3d(0,0,0)
-//     opacity: 1
+section.offline-warn
+  position: fixed
+  width: 48.5%
+  bottom: 13%
+  left: 50%
+  padding: 10px
+  z-index: 99
+  background-color: #f6f6f6
+  color: #505050
+  box-shadow: 0px 2px 2px 0px rgba(0,0,0,0.5)
+  display: flex
+  font-size: 0.9em
+  align-items: center
+  justify-content: space-between
+  opacity: 0
+  transition: 0.2s
+  border-radius: 4px
+  transform: translate3d(-50%,-60px,0px)
+  &.visible
+    opacity: 1
+    transform: translate3d(-50%,0px,0px)
+  i
+    margin-right: 5px
+  span.retry
+    font-family: $h-stack
+    text-transform: uppercase
+    color: $brand-red
+    font-size: 1.1em
 
 footer
   position: fixed
@@ -132,7 +141,7 @@ footer
   width: 100vw
   left: 0px
   right: 0px
-  z-index: 999
+  z-index: 9999
   display: flex
   flex-direction: row
   justify-content: flex-start
@@ -140,7 +149,7 @@ footer
   align-items: center
   padding: 10px
   background-color: $bg-grey
-
+  box-shadow: 0px -1px 2px 0px rgba(0, 0, 0, 0.1)
   div#radio-image
     height: 50px
     width: 50px
@@ -154,6 +163,7 @@ footer
     overflow: hidden
     h4
       color: $mid-grey
+      white-space: nowrap
     p
       display: block
       marquee
@@ -175,7 +185,7 @@ footer
     justify-content: center
     align-items: center
 
-nav
+nav#main
   z-index: 999
   height: 100%
   position: absolute
@@ -208,7 +218,6 @@ nav
         display: block
         color: $mid-grey
         text-decoration: none
-        border-bottom: 0.5px solid #dfdfdf
         padding: 10px 10px 5px 10px
         transition: 1s
         &:active
@@ -217,6 +226,7 @@ nav
     li.red
       a
         color: $dark-red
+        border-top: 0.5px solid #dfdfdf
 
   p
     position: absolute
@@ -228,12 +238,12 @@ nav
     font-size: 0.8em
 
 img#loader
-  width: 40vw
-  height: 25vw
+  width: 30vw
+  height: 20vw
   text-align: center
   margin: 0px auto
   position: absolute
-  top: 15%
+  top: 22%
   left: 50%
   transform: translate(-50%, -50%)
   z-index: 99999
@@ -279,12 +289,16 @@ ul.post-grid.home
     &:nth-of-type(3n-1), &:nth-of-type(9)
       background-color: $brand-blue
 
+div.post-grid-holder
+  perspective: 100px
+
 ul.post-grid
   margin: 0px 10px
   list-style-type: none
   display: flex
   flex-direction: row
   flex-wrap: wrap
+  transition: 0.1s
   li
     position: relative
     width: calc(50% - 5px)
@@ -351,8 +365,12 @@ section.single-meta
     background-position: center
     margin-bottom: 20px
     animation-name: fadeIn
-    animation-duration: 0.8s
+    animation-delay: 0.3s
+    opacity: 0
+    animation-fill-mode: forwards
+    animation-duration: 0.5s
     animation-timing-function: ease-in
+    background-color: #efefef
   h3
     margin: 10px
     color: $mid-grey
@@ -379,6 +397,15 @@ article.single-content
     font-size: 1.1em
     margin: 0px 10px 12px 10px
     color: $mid-grey
+  blockquote:not(.twitter-tweet) p
+    font-family: $h-stack
+    font-size: 1.5em
+    color: $light-grey
+    border-top: 0.5px solid #dfdfdf
+    padding-top: 5px
+    border-radius: 2px
+    &::before, &::after
+      content: "''"
   a
     color: $brand-red
     text-decoration: none
@@ -418,3 +445,74 @@ h2.category-title
   text-align: center
   font-size: 2em
   color: $mid-grey
+
+
+main.schedule
+  overflow-y: hidden
+  section
+    overflow-y: scroll
+    position: absolute
+    top: 95px
+    bottom: 0px
+    margin: 10px 10px 0px 10px
+
+nav#schedule
+  display: flex
+  flex-direction: row
+  justify-content: center
+  align-items: center
+  border: 0.5px solid #dfdfdf
+  border-radius: 2px
+  margin: 0px 10px
+  a
+    width: 50%
+    text-align: center
+    font-family: $h-stack
+    text-decoration: none
+    font-size: 1.2em
+    color: $mid-grey
+    padding: 10px
+    transition: 0.5s
+    -webkit-tap-highlight-color: rgba(255, 255, 255, 0)
+    outline: 0
+    &.active
+      background-color: #dfdfdf
+      transition: 0.1s
+
+ul.schedule-list
+  li
+    margin-bottom: 10px
+    background-color: #fafafa
+    border-radius: 2px
+    display: flex
+    position: relative
+    flex-direction: row
+    overflow: hidden
+    div
+      height: 110px
+      width: 110px
+      background-color: #efefef
+      background-position: center
+      background-size: cover
+      position: relative
+      opacity: 1
+    aside
+      padding: 10px
+      flex: 1
+      h3, p
+        color: $mid-grey
+      p
+        font-size: 0.9em
+      p:last-of-type
+        color: $light-grey
+      span
+        position: absolute
+        top: 0px
+        right: 0px
+        background-color: $brand-red
+        display: inline-block
+        padding: 2px 4px
+        border-radius: 1px
+        text-transform: uppercase
+        font-size: 0.8em
+        color: $bg-grey

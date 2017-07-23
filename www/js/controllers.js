@@ -1,6 +1,14 @@
 var smokeControllers = angular.module('smokeControllers', [])
 
 // CONTROLLERS
+.controller('offlineController', function($scope, $state){
+  // Method to reconnect to WP API and radio on click
+  $scope.reconnect = function(){
+    // Reload current view
+    $state.reload()
+  }
+})
+
 .controller('homeController', function($scope, $http, wpData, $state){
   $scope.loading = true;
   // Call the WP service
@@ -12,14 +20,15 @@ var smokeControllers = angular.module('smokeControllers', [])
   // Wait for view to be ready, then make it swipable
   angular.element(document).ready(function(){
     // Register swipe gestures
-    swipable('main.home', openMenu, closeMenu);
-    swipable('nav', null, closeMenu);
-    pullReload('ul.post-grid', 'main.home', $scope.reload)
+    swipable('main.home', 'right', openMenu);
+    swipable('main.home', 'left', closeMenu);
+    swipable('nav', 'left', closeMenu);
+    // pullReload('ul.post-grid', 'main.home', $scope.reload);
   })
   // The reload method
   $scope.reload = function(){
     $scope.loading = true;
-    $scope.posts = null;
+    $scope.posts = false;
     wpData.getPosts().then(function(posts) {
       document.querySelector('ul.post-grid').style.transform = "translate(0px) rotate(0deg)";
       $scope.posts = posts;
@@ -29,12 +38,12 @@ var smokeControllers = angular.module('smokeControllers', [])
 })
 
 // Fetch post by slug from WP
-.controller('singleController', function($scope, $http, $stateParams, post, $compile){
+.controller('singleController', function($scope, $http, $stateParams, post){
   $scope.post = post;
   $scope.viewName = 'single';
   // Wait for view to be ready, then make it swipable
   angular.element(document).ready(function(){
-    swipable('main.single', function() {
+    swipable('main.single', 'right', function() {
       window.history.back();
     });
   });
@@ -65,10 +74,10 @@ var smokeControllers = angular.module('smokeControllers', [])
   });
   // Register swipe gestures when view is ready
   angular.element(document).ready(function(){
-    swipable('main.category', function() {
+    swipable('main.category', 'right', function() {
       window.history.back();
     });
-    pullReload('ul.post-grid', 'main.category', $scope.reload)
+    // pullReload('ul.post-grid', 'main.category', $scope.reload)
   })
   // The reload method
   $scope.reload = function(){
@@ -82,6 +91,68 @@ var smokeControllers = angular.module('smokeControllers', [])
   }
   $scope.viewName = 'category';
 })
+
+// Schedule controllers
+.controller('scheduleController', function($scope, $stateParams, schedule, $state, radioData){
+  // Make the data available in scope
+  $scope.schedule = schedule;
+  $scope.viewName = 'schedule';
+  // Register swipe gestures when view is ready
+  angular.element(document).ready(function(){
+    swipable('main.schedule', 'left', function() {
+      $state.go('home')
+    });
+  })
+  // The reload method
+  $scope.reload = function(){
+    $scope.schedule = false;
+    radioData.getSchedule().then(function(posts) {
+      $scope.schedule = posts;
+      $state.reload();
+    });
+  }
+})
+.controller('scheduleDayController', function($scope, $stateParams){
+  // Get the day as a zero-indexed integer, where 0=Sunday and 6=Saturday
+  var date = new Date();
+  var day = date.getDay();
+  var hour = date.getHours();
+  // Function to take an array of shows (one schedule day) and make it a sensible format, with local fallbacks
+  function prettify(uglyShows){
+    // Blank array to store all the pretty shows
+    let prettyShows = new Array;
+    // Loop over every show in the given day
+    for (var i = 0; i < uglyShows.length; i++) {
+      // Object to hold a new pretty show
+      let show = new Object;
+      // Start adding key-value pairs to the object
+      show.title = uglyShows[i].title;
+      show.tx_time = uglyShows[i].tx_time.substring(0,5);
+      show.short_desc = uglyShows[i].short_desc;
+      if (parseInt(uglyShows[i].tx_time.substring(0,2)) == hour) {
+        show.on_now = true;
+      }
+      // Local fallback if no icon
+      if (uglyShows[i].icon !== null) {
+        show.icon = uglyShows[i].icon;
+      } else{
+        show.icon = 'assets/smokeradio.png';
+      }
+      // Add this show to the growing array of pretty shows
+      prettyShows.push(show);
+    }
+    // Pass out the new array of pretty shows
+    return prettyShows;
+  }
+  // Supply the right day of shows based on the current day
+  if ($stateParams.day == "tomorrow") {
+    $scope.daySchedule = prettify($scope.schedule[day+1]);
+  } else {
+    $scope.daySchedule = prettify($scope.schedule[day]);
+  }
+})
+
+
 
 // Fetch now-playing info for the radio player
 .controller('radioController', function($scope, $http, radioData){

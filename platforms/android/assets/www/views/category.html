@@ -7,8 +7,8 @@
 
 <img src="assets/loader.svg" ng-show="loading" id="loader"/>
 
-<!-- <h2 >{{category}}</h2> -->
 
+<div class="post-grid-holder">
 <ul class="post-grid category">
   <li class="category-title" ng-show="category"><h2>{{category}}</h2></li>
   <li onclick="explodeLi(this)" ng-repeat="post in posts" ng-switch="$index">
@@ -42,3 +42,4 @@
     </div>
   </li>
 </ul>
+</div>

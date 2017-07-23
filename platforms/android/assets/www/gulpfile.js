@@ -1,7 +1,8 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass');
 var minify = require('gulp-minify');
-var browserSync = require('browser-sync')
+var browserSync = require('browser-sync');
+var autoprefixer = require('gulp-autoprefixer');
 
 // Minify JS
 gulp.task('minify', function(){
@@ -14,6 +15,10 @@ gulp.task('minify', function(){
 gulp.task('sass', function(){
   gulp.src('sass/*.sass')
     .pipe(sass({}))
+    .pipe(autoprefixer({
+      browsers: ['last 2 versions'],
+      cascade: false
+    }))
     .pipe(gulp.dest('css'))
     // And send on new CSS to the live-reload server
     .pipe(browserSync.stream());

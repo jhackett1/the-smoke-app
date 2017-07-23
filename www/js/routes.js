@@ -32,8 +32,21 @@ smokeRoutes.config(function($stateProvider, $urlRouterProvider){
       templateUrl: 'views/category.html',
       controller: 'categoryController',
     })
+
     .state('schedule', {
       url: '/schedule',
-      templateUrl: 'views/schedule.html'
+      templateUrl: 'views/schedule.html',
+      controller: 'scheduleController',
+      // Get the data before displaying the view
+      resolve: {
+        schedule: function(radioData){
+          return radioData.getSchedule();
+        }
+      }
+    })
+    .state('schedule.day', {
+      url: '/:day',
+      templateUrl: 'views/schedule-day.html',
+      controller: 'scheduleDayController'
     })
 })

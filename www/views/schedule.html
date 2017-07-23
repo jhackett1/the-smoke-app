@@ -7,5 +7,9 @@
 
 <img src="assets/loader.svg" ng-show="loading" id="loader"/>
 
+<nav id="schedule">
+  <a ui-sref="schedule.day({day: 'today'})" ui-sref-active="active">Today</a>
+  <a ui-sref="schedule.day({day: 'tomorrow'})" ui-sref-active="active">Tomorrow</a>
+</nav>
 
-This is the schedule
+<section ui-view></section>

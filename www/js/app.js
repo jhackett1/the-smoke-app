@@ -12,12 +12,16 @@ function closeMenu(){
 }
 // For the back button on every view
 function goBack() {
-    window.history.back();
+  window.history.back();
 }
 // Tiles respond on touch
 function explodeLi(element){
-      element.style.cssText = "animation: explode 0.5s; opacity: 1 !important;";
+  element.style.cssText = "animation: explode 0.5s; opacity: 1 !important;";
 };
+function refresh(){
+  location.reload();
+}
+
 // Fastclick
 if ('addEventListener' in document) {
 	document.addEventListener('DOMContentLoaded', function() {

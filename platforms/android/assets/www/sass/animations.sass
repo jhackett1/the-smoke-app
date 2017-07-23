@@ -20,6 +20,23 @@
     transform: scale(1)
     opacity: 1
 
+
+// Fade in post tiles one by one
+ul.schedule-list li
+  animation: fadeIn 0.3s ease-out
+  animation-fill-mode: forwards
+  opacity: 0
+  &:nth-of-type(2)
+    animation-delay: 0.1s
+  &:nth-of-type(3)
+    animation-delay: 0.2s
+  &:nth-of-type(4)
+    animation-delay: 0.3s
+  &:nth-of-type(5)
+    animation-delay: 0.4s
+  &:nth-of-type(6)
+    animation-delay: 0.5s
+
 // Fade in post tiles one by one
 ul.post-grid li
   animation: fadeIn 0.3s ease-out
@@ -49,26 +66,25 @@ ul.post-grid li
 // NG-ANIMATE
 
 // When a single article is entering view, INITIAL
-main.single.ng-enter
+main.single.ng-enter, main.schedule.ng-enter
   transform: translate3d(100%, 0, 0)
   transition: 0.3s ease-out
   // Wait a fraction of a second to give the single article time to load
   z-index: 99999 !important
 // And FINAL
-main.single.ng-enter-active
+main.single.ng-enter-active, main.schedule.ng-enter-active
   transform: translate3d(0%, 0, 0)
   z-index: 99999 !important
 
 // When a single article is leaving view, INITIAL
-main.single.ng-leave
+main.single.ng-leave, main.schedule.ng-leave
   transform: translate3d(0%, 0, 0)
   transition: 0.3s ease-in
   z-index: 30
 // And FINAL
-main.single.ng-leave-active
+main.single.ng-leave-active, main.schedule.ng-leave-active
   transform: translate3d(100%, 0, 0)
   z-index: 30
-
 
 main.home.ng-leave
   transition-delay: 0.3s

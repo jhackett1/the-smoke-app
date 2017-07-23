@@ -1,7 +1,7 @@
 var smokeProviders = angular.module('smokeProviders', [])
 
 // Interacting with the radio data API
-.service('radioData', function($http, $q){
+.service('radioData', function($http, $q, $rootScope){
   // NOW PLAYING METHOD
   this.nowPlaying = function(){
     // Set up the promise
@@ -18,10 +18,38 @@ var smokeProviders = angular.module('smokeProviders', [])
       });
       return deferred.promise;
   }
+  // Method to grab the schedule
+  this.getSchedule = function(){
+    var deferred = $q.defer();
+    $http
+      .get('http://marconi.smokeradio.co.uk/api/schedule.php')
+      .then(function(res){
+        // On success
+        var schedule = res.data.schedule;
+        // Re-order the schedule array to start at Sunday, not monday, by popping off the first element
+        var sunday = schedule.pop();
+        schedule.unshift(sunday);
+        // Pass out the schedule data
+        deferred.resolve(schedule);
+        // Save the data to local storage
+        window.localStorage.setItem('schedule', JSON.stringify(schedule));
+      }, function(data){
+        // On error
+        console.error(data.status + " Error: couldn't access the Radio Data API");
+        // Retrieve local data instead
+        if (window.localStorage.getItem('schedule')) {
+          deferred.resolve(JSON.parse(window.localStorage.getItem('schedule')));
+          console.log('Cached data returned');
+        };
+      });
+      return deferred.promise;
+  }
+
 })
 
 // Interacting with the Wordpress API
-.service('wpData', function($http, $q){
+.service('wpData', function($http, $q, $rootScope){
+
   // HOMEPAGE METHOD
   this.getPosts = function(){
     // Set up promise
@@ -33,13 +61,26 @@ var smokeProviders = angular.module('smokeProviders', [])
         // On success
         // Resolve the promise
         deferred.resolve(res.data);
+        $rootScope.offline = false;
+        // Save the data to local storage
+        window.localStorage.setItem('home-posts', JSON.stringify(res.data));
       }, function(data){
         // On error
         console.error(data.status + " Error: couldn't access the WP API");
+        // Attempt to show cached data
+        if (window.localStorage.getItem('home-posts')) {
+          deferred.resolve(JSON.parse(window.localStorage.getItem('home-posts')));
+          console.log('Cached data returned');
+          $rootScope.offline = true;
+        };
+
       });
       // Return the promised value
     return deferred.promise;
   }
+
+
+
   // SINGLE ARTICLE METHOD
   this.getSinglePost = function(slug){
     // Set up promise
@@ -51,13 +92,30 @@ var smokeProviders = angular.module('smokeProviders', [])
         // On success
         // Resolve the promise
         deferred.resolve(res.data[0]);
+        $rootScope.offline = false;
       }, function(data){
         // On error
         console.error(data.status + " Error: couldn't access the WP API");
+        // Attempt to show cached data
+        if (window.localStorage.getItem('home-posts')) {
+          var allPosts = JSON.parse(window.localStorage.getItem('home-posts'));
+          // Get the right post from the cached data
+          var thisPost = allPosts.filter(function(post){
+            return post.slug == slug;
+          })
+          // Return the cached post
+          deferred.resolve(thisPost[0]);
+          $rootScope.offline = true;
+        };
       });
       // Return the promised value
     return deferred.promise;
   }
+
+
+
+
+
   // CATEGORY METHOD
   this.getCategoryPosts = function(id){
     // Set up promise
@@ -69,9 +127,11 @@ var smokeProviders = angular.module('smokeProviders', [])
         // On success
         // Resolve the promise
         deferred.resolve(res.data);
+        $rootScope.offline = false;
       }, function(data){
         // On error
         console.error(data.status + " Error: couldn't access the WP API");
+        $rootScope.offline = true;
       });
       // Return the promised value
     return deferred.promise;

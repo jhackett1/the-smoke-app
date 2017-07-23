@@ -7,12 +7,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 <body>
+
   <!-- Main application view -->
   <div class="view-container">
     <ng-include src="'nav.html'"></ng-include>
     <main ui-view class="{{viewName}}"></main>
   </div>
-  
+
+  <ng-controller ng-controller="offlineController">
+    <section ng-class="{true: 'offline-warn visible', false: 'offline-warn'}[offline == true]"><p><i class="fa fa-exclamation-triangle"></i><strong>No connection</strong></p><span ng-click="reconnect()" class="retry">Try again</span></section>
+  </ng-controller>
+
   <!-- Footer/radio player -->
   <ng-include src="'radio.html'"></ng-include>
   <!-- Cordova and plugins -->

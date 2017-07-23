@@ -1,0 +1,11 @@
+<ul class="schedule-list">
+  <li ng-repeat="show in daySchedule">
+    <div style="background-image:url({{show.icon}})"></div>
+    <aside>
+      <p>{{show.tx_time | date}}</p>
+      <h3>{{show.title}}</h3>
+      <p>{{show.short_desc}}</p>
+      <span ng-if="show.on_now">On now</span>
+    </aside>
+  </li>
+</ul>
