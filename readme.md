@@ -25,7 +25,7 @@ Wish list & known issues
 
 This app should be considered a proof of concept, not a finished product. It has only been tested on Android devices, but should theoretically work fine on iOS with a few UX tweaks.
 
-Gestures like swipes are build from scratch in JS, so don't work exactly like native equivalents.
+Gestures like swipes are build from scratch in JS, so don't work exactly like native equivalents. Like all Cordova apps, performance becomes sketchy when run on older devices, mostly due to the inevitable overhead of running inside a webview.
 
 Ideally, the app would also benefit from:
 
