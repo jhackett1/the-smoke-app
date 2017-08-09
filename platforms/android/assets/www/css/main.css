@@ -104,8 +104,8 @@ ul.post-grid li {
 main.single.ng-enter, main.schedule.ng-enter {
   -webkit-transform: translate3d(100%, 0, 0);
   transform: translate3d(100%, 0, 0);
-  -webkit-transition: 0.3s ease-out;
-  transition: 0.3s ease-out;
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   z-index: 99999 !important; }
 
 main.single.ng-enter-active, main.schedule.ng-enter-active {
@@ -114,26 +114,16 @@ main.single.ng-enter-active, main.schedule.ng-enter-active {
   z-index: 99999 !important; }
 
 main.single.ng-leave, main.schedule.ng-leave {
-  -webkit-transform: translate3d(0%, 0, 0);
-  transform: translate3d(0%, 0, 0);
-  -webkit-transition: 0.3s ease-in;
-  transition: 0.3s ease-in;
+  -webkit-transform: translate3d(0%, 0px, 0px);
+  transform: translate3d(0%, 0px, 0px);
+  -webkit-transition: 0.3s;
+  transition: 0.3s;
   z-index: 30; }
 
 main.single.ng-leave-active, main.schedule.ng-leave-active {
-  -webkit-transform: translate3d(100%, 0, 0);
-  transform: translate3d(100%, 0, 0);
+  -webkit-transform: translate3d(100%, 0px, 0px);
+  transform: translate3d(100%, 0px, 0px);
   z-index: 30; }
-
-main.home.ng-leave {
-  -webkit-transition-delay: 0.3s;
-  transition-delay: 0.3s;
-  -webkit-transition: 0.2s;
-  transition: 0.2s;
-  visibility: visible; }
-
-main.home.ng-leave-active {
-  visibility: hidden; }
 
 @font-face {
   font-family: 'Bebas Neue';
@@ -171,7 +161,7 @@ main {
   right: 0px;
   bottom: 70px;
   background-color: white;
-  padding-top: 50px;
+  padding-top: 60px;
   z-index: 1;
   width: 100vw; }
   main div.single {
@@ -192,7 +182,7 @@ p, li {
 
 header {
   position: fixed;
-  top: 0px;
+  top: -0.5px;
   width: 100vw;
   z-index: 99;
   display: -webkit-box;
@@ -205,15 +195,16 @@ header {
   -ms-flex-align: center;
   align-items: center;
   overflow: hidden;
-  height: 40px;
+  height: 50px;
   background-color: #bb2d42;
   color: #f6f6f6;
-  -webkit-box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px 2px 2px 0px rgba(0, 0, 0, 0.1); }
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2); }
   header a {
     color: #f6f6f6;
-    width: 40px;
-    height: 40px;
+    width: 50px;
+    height: 50px;
+    font-size: 1.5em;
     text-align: center;
     display: -webkit-box;
     display: -ms-flexbox;
@@ -233,12 +224,13 @@ header {
       -webkit-transition: 0.1s;
       transition: 0.1s; }
   header img {
-    height: 25px;
+    height: 30px;
     width: auto; }
 
 section.offline-warn {
   position: fixed;
   width: 48.5%;
+  min-width: 170px;
   bottom: 13%;
   left: 50%;
   padding: 10px;
@@ -299,8 +291,8 @@ footer {
   align-items: center;
   padding: 10px;
   background-color: #f6f6f6;
-  -webkit-box-shadow: 0px -1px 2px 0px rgba(0, 0, 0, 0.1);
-  box-shadow: 0px -1px 2px 0px rgba(0, 0, 0, 0.1); }
+  -webkit-box-shadow: 0px -1px 4px 0px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px -1px 4px 0px rgba(0, 0, 0, 0.2); }
   footer div#radio-image {
     height: 50px;
     width: 50px;
@@ -308,7 +300,21 @@ footer {
     margin-right: 10px;
     border-radius: 1px;
     background-size: cover;
-    background-position: center; }
+    background-position: center;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center; }
+    footer div#radio-image img {
+      width: 50px;
+      height: 50px;
+      padding-top: 10px;
+      background-color: rgba(0, 0, 0, 0.2); }
   footer aside {
     -webkit-box-flex: 1;
     -ms-flex: 1;
@@ -326,7 +332,6 @@ footer {
   footer button {
     height: 50px;
     width: 50px;
-    border-radius: 250px;
     margin-left: 10px;
     background-color: #f6f6f6;
     border: none;
@@ -366,16 +371,16 @@ nav#main {
   flex-direction: column;
   -webkit-transform: translate3d(-103%, 0, 0);
   transform: translate3d(-103%, 0, 0);
-  -webkit-transition: 0.2s ease-out;
-  transition: 0.2s ease-out; }
+  -webkit-transition: 0.2s;
+  transition: 0.2s; }
   nav#main.visible {
     -webkit-transform: translate3d(0%, 0, 0);
     transform: translate3d(0%, 0, 0);
-    -webkit-transition: 0.2s ease-out;
-    transition: 0.2s ease-out; }
+    -webkit-transition: 0.2s;
+    transition: 0.2s; }
   nav#main a.close {
     color: #969696;
-    font-size: 1.5em;
+    font-size: 2em;
     text-decoration: none;
     margin: 10px 10px 30px 10px; }
   nav#main ul li {
@@ -412,7 +417,7 @@ img#loader {
   text-align: center;
   margin: 0px auto;
   position: absolute;
-  top: 22%;
+  top: 18%;
   left: 50%;
   -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
@@ -501,8 +506,8 @@ ul.post-grid {
       background-size: cover;
       background-position: center;
       opacity: 0.2;
-      -webkit-filter: grayscale(1);
-      filter: grayscale(1);
+      -webkit-filter: grayscale(0.5);
+      filter: grayscale(0.5);
       z-index: 2; }
     ul.post-grid li div.info {
       position: absolute;
@@ -517,12 +522,13 @@ ul.post-grid {
       -ms-flex-pack: end;
       justify-content: flex-end;
       height: 100%;
-      padding: 5px;
+      padding: 8px;
       z-index: 3;
       color: #f6f6f6; }
       ul.post-grid li div.info h2 {
-        font-size: 1.3em;
-        line-height: 1.1em; }
+        font-size: 1.35em;
+        line-height: 1em;
+        font-weight: normal; }
       ul.post-grid li div.info p {
         font-size: 0.9em;
         font-weight: 100;
@@ -585,6 +591,15 @@ article.single-content {
     font-size: 1.1em;
     margin: 0px 10px 12px 10px;
     color: #505050; }
+  article.single-content ul {
+    list-style: inside;
+    color: #505050; }
+    article.single-content ul li {
+      margin-left: 10px; }
+  article.single-content section#smoke-signup {
+    display: none; }
+  article.single-content div.wp-caption {
+    width: 100% !important; }
   article.single-content blockquote:not(.twitter-tweet) p {
     font-family: "Bebas Neue", Oswald, sans-serif;
     font-size: 1.5em;
@@ -646,7 +661,9 @@ main.schedule {
   main.schedule section {
     overflow-y: scroll;
     position: absolute;
-    top: 95px;
+    left: 0px;
+    right: 0px;
+    top: 105px;
     bottom: 0px;
     margin: 10px 10px 0px 10px; }
 

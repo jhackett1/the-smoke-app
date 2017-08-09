@@ -8,7 +8,7 @@ var smokeProviders = angular.module('smokeProviders', [])
     var deferred = $q.defer();
     // Make the HTTP request
     $http
-      .get('http://marconi.smokeradio.co.uk/api/now_playing.php')
+      .get('http://smoke.media/wp-json/shows/now_playing')
       .then(function(res){
         // On success
         deferred.resolve(res.data);
@@ -22,13 +22,10 @@ var smokeProviders = angular.module('smokeProviders', [])
   this.getSchedule = function(){
     var deferred = $q.defer();
     $http
-      .get('http://marconi.smokeradio.co.uk/api/schedule.php')
+      .get('http://smoke.media/wp-json/shows/schedule')
       .then(function(res){
         // On success
-        var schedule = res.data.schedule;
-        // Re-order the schedule array to start at Sunday, not monday, by popping off the first element
-        var sunday = schedule.pop();
-        schedule.unshift(sunday);
+        var schedule = res.data;
         // Pass out the schedule data
         deferred.resolve(schedule);
         // Save the data to local storage

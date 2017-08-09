@@ -5,10 +5,10 @@ var app = angular.module('app', ['ui.router', 'ngAnimate', 'ngSanitize', 'smokeC
 // NON-ANGULAR HELPER FUNCTIONS
 // For the menu
 function openMenu(){
-  document.querySelector('nav').classList = 'visible';
+  document.querySelector('nav').classList.add('visible');
 }
 function closeMenu(){
-  document.querySelector('nav').classList = '';
+  document.querySelector('nav').classList.remove('visible');
 }
 // For the back button on every view
 function goBack() {
@@ -16,7 +16,9 @@ function goBack() {
 }
 // Tiles respond on touch
 function explodeLi(element){
-  element.style.cssText = "animation: explode 0.5s; opacity: 1 !important;";
+  element.style.opacity = "1 !important";
+  element.style.animation = "explode 0.5s";
+  element.style.animation = "explode 0.5s";
 };
 function refresh(){
   location.reload();

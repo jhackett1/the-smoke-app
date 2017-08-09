@@ -9,7 +9,7 @@ var smokeControllers = angular.module('smokeControllers', [])
   }
 })
 
-.controller('homeController', function($scope, $http, wpData, $state){
+.controller('homeController', function($scope, $http, wpData, $state, $rootScope){
   $scope.loading = true;
   // Call the WP service
   wpData.getPosts().then(function(posts) {
@@ -23,7 +23,8 @@ var smokeControllers = angular.module('smokeControllers', [])
     swipable('main.home', 'right', openMenu);
     swipable('main.home', 'left', closeMenu);
     swipable('nav', 'left', closeMenu);
-    // pullReload('ul.post-grid', 'main.home', $scope.reload);
+    pullReload('ul.post-grid', 'main.home', $scope.reload);
+
   })
   // The reload method
   $scope.reload = function(){
@@ -38,8 +39,9 @@ var smokeControllers = angular.module('smokeControllers', [])
 })
 
 // Fetch post by slug from WP
-.controller('singleController', function($scope, $http, $stateParams, post){
+.controller('singleController', function($scope, $http, $stateParams, post, $sce){
   $scope.post = post;
+  $scope.content = $sce.trustAsHtml(post.content.rendered);
   $scope.viewName = 'single';
   // Wait for view to be ready, then make it swipable
   angular.element(document).ready(function(){
@@ -74,10 +76,7 @@ var smokeControllers = angular.module('smokeControllers', [])
   });
   // Register swipe gestures when view is ready
   angular.element(document).ready(function(){
-    swipable('main.category', 'right', function() {
-      window.history.back();
-    });
-    // pullReload('ul.post-grid', 'main.category', $scope.reload)
+    pullReload('ul.post-grid', 'main.category', $scope.reload);
   })
   // The reload method
   $scope.reload = function(){
@@ -97,12 +96,6 @@ var smokeControllers = angular.module('smokeControllers', [])
   // Make the data available in scope
   $scope.schedule = schedule;
   $scope.viewName = 'schedule';
-  // Register swipe gestures when view is ready
-  angular.element(document).ready(function(){
-    swipable('main.schedule', 'left', function() {
-      $state.go('home')
-    });
-  })
   // The reload method
   $scope.reload = function(){
     $scope.schedule = false;
@@ -120,23 +113,23 @@ var smokeControllers = angular.module('smokeControllers', [])
   // Function to take an array of shows (one schedule day) and make it a sensible format, with local fallbacks
   function prettify(uglyShows){
     // Blank array to store all the pretty shows
-    let prettyShows = new Array;
+    var prettyShows = new Array;
     // Loop over every show in the given day
     for (var i = 0; i < uglyShows.length; i++) {
       // Object to hold a new pretty show
-      let show = new Object;
+      var show = new Object;
       // Start adding key-value pairs to the object
       show.title = uglyShows[i].title;
-      show.tx_time = uglyShows[i].tx_time.substring(0,5);
-      show.short_desc = uglyShows[i].short_desc;
-      if (parseInt(uglyShows[i].tx_time.substring(0,2)) == hour) {
+      show.tx_time = uglyShows[i].tx_time.substring(0,2) + ":" + uglyShows[i].tx_time.substring(2,4);
+      show.desc = uglyShows[i].desc;
+      if (parseInt(uglyShows[i].tx_time.substring(0,2)) == hour && $stateParams.day == "today") {
         show.on_now = true;
       }
       // Local fallback if no icon
-      if (uglyShows[i].icon !== null) {
-        show.icon = uglyShows[i].icon;
+      if (uglyShows[i].icon_thumb !== false) {
+        show.icon_thumb = uglyShows[i].icon_thumb;
       } else{
-        show.icon = 'assets/smokeradio.png';
+        show.icon_thumb = 'assets/noicon.jpg';
       }
       // Add this show to the growing array of pretty shows
       prettyShows.push(show);
@@ -152,69 +145,95 @@ var smokeControllers = angular.module('smokeControllers', [])
   }
 })
 
-
-
 // Fetch now-playing info for the radio player
-.controller('radioController', function($scope, $http, radioData){
-  // Function to control playback and media notification
+.controller('radioController', function($scope, $http, radioData, $rootScope){
+  $scope.loading = false;
+
+
   $scope.playPause = function(){
     var audio = document.getElementById('radio-audio');
     var button = document.querySelector('#radio-control i');
-    if (!audio.paused){
+
+    if (audio.paused) {
+      // Turn on the loading spinner
+      $scope.loading = true;
+      // Change the icon
+      button.classList.remove('fa-play');
+      button.classList.add('fa-pause');
+      // Make the play request
+      audio.play();
+
+      // On successful play
+      audio.addEventListener('playing', function playSuccess(){
+        // Turn off the spinner
+        $scope.loading = false;
+        // Remove the listener
+        audio.removeEventListener('playing', playSuccess);
+        // Make sure the app knows we're ONLINE
+        $rootScope.offline = false;
+        // Force the view to update
+        $scope.$applyAsync();
+        // Create notification
+        MusicControls.create({
+          track: $scope.radio.title,
+          artist: "Smoke Radio",
+          cover: $scope.radio.icon_thumb,
+          isPlaying   : true,
+          hasPrev   : false,
+          hasNext   : false,
+          hasClose  : false,
+          ticker	  : "You're listening to Smoke Radio - London's student sound"
+        });
+        function events(action) {
+          const message = JSON.parse(action).message;
+          switch(message) {
+            case 'music-controls-pause':
+              // Do something
+              audio.pause();
+              var tempSrc = audio.src;
+              audio.src = '';
+              audio.src = tempSrc;
+              button.classList.remove('fa-pause');
+              button.classList.add('fa-play');
+              MusicControls.updateIsPlaying(false);
+              break;
+            case 'music-controls-play':
+              // Do something
+              audio.play();
+              button.classList.remove('fa-play');
+              button.classList.add('fa-pause');
+              MusicControls.updateIsPlaying(true);
+              break;
+            case 'music-controls-media-button' :
+              // Do something
+              break;
+            default:
+              break;
+          }
+        }
+        // Register callback
+        MusicControls.subscribe(events);
+        // Start listening for events
+        MusicControls.listen();
+      })
+
+    } else {
+      // On pause
       audio.pause();
-      // Rip out and replace the src attribute to abort the otherwise infinite download
+      // Rip out and replace source attribute, "stopping" the player
       var tempSrc = audio.src;
       audio.src = '';
       audio.src = tempSrc;
-      button.classList = "fa fa-play fa-3x";
-      // Destroy the notification
+      // Change icon
+      button.classList.remove('fa-pause');
+      button.classList.add('fa-play');
+      // Destroy notification
       MusicControls.destroy({});
-    } else {
-      audio.play();
-      button.classList = "fa fa-pause fa-3x";
-      // Create the notification
-      MusicControls.create({
-        track: $scope.radio.title,
-        artist: "Smoke Radio",
-        cover: $scope.radio.icon,
-        isPlaying   : true,
-        hasPrev   : false,
-        hasNext   : false,
-        hasClose  : false,
-        ticker	  : "You're listening to Smoke Radio - London's student sound"
-      });
+    }
+  }
 
-      function events(action) {
-        const message = JSON.parse(action).message;
-      	switch(message) {
-      		case 'music-controls-pause':
-      			// Do something
-            audio.pause();
-            var tempSrc = audio.src;
-            audio.src = '';
-            audio.src = tempSrc;
-            button.classList = "fa fa-play fa-3x";
-            MusicControls.updateIsPlaying(false);
-      			break;
-      		case 'music-controls-play':
-      			// Do something
-            audio.play();
-            button.classList = "fa fa-pause fa-3x";
-            MusicControls.updateIsPlaying(true);
-      			break;
-      		case 'music-controls-media-button' :
-      			// Do something
-      			break;
-      		default:
-      			break;
-      	}
-      }
-      // Register callback
-      MusicControls.subscribe(events);
-      // Start listening for events
-      MusicControls.listen();
-    };
-  };
+
+
 
 
   // Function to grab metadata from radio data API
@@ -228,13 +247,13 @@ var smokeControllers = angular.module('smokeControllers', [])
         // If there is no show, supply dummy data
         $scope.radio = {
           title: "Smoke Jukebox",
-          short_desc: "The best tracks from Smoke Radio's catalogue.",
-          icon: 'assets/smokeradio.png'
+          desc: "The best tracks from Smoke Radio's catalogue.",
+          icon_thumb: 'assets/smokeradio.png'
         }
       }
       // If there is no icon, give the dummy icon
-      if ($scope.radio.icon == null){
-        $scope.radio.icon = 'assets/smokeradio.png';
+      if ($scope.radio.icon_thumb == false){
+        $scope.radio.icon_thumb = 'assets/smokeradio.png';
       }
     });
   }

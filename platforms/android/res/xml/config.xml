@@ -1,29 +1,29 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget defaultlocale="en" id="io.cordova.hellocordova" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
-    <feature name="Whitelist">
-        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+<widget android-versionCode="10004" defaultlocale="en" id="io.smokemedia.smokemedia" version="1.0.4" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+    <feature name="DisableHttpCachePlugin">
+        <param name="android-package" value="com.koenromers.cordova.DisableHttpCachePlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="HeaderColor">
+        <param name="android-package" value="tomloprod.HeaderColor" />
+        <param name="onload" value="true" />
+    </feature>
+    <feature name="MusicControls">
+        <param name="android-package" value="com.homerours.musiccontrols.MusicControls" />
+    </feature>
+    <feature name="SplashScreen">
+        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
         <param name="onload" value="true" />
     </feature>
     <feature name="StatusBar">
         <param name="android-package" value="org.apache.cordova.statusbar.StatusBar" />
         <param name="onload" value="true" />
     </feature>
-    <feature name="MusicControls">
-        <param name="android-package" value="com.homerours.musiccontrols.MusicControls" />
-    </feature>
-    <feature name="HeaderColor">
-        <param name="android-package" value="tomloprod.HeaderColor" />
-        <param name="onload" value="true" />
-    </feature>
-    <feature name="SplashScreen">
-        <param name="android-package" value="org.apache.cordova.splashscreen.SplashScreen" />
-        <param name="onload" value="true" />
-    </feature>
     <feature name="SocialSharing">
         <param name="android-package" value="nl.xservices.plugins.SocialSharing" />
     </feature>
-    <feature name="DisableHttpCachePlugin">
-        <param name="android-package" value="com.koenromers.cordova.DisableHttpCachePlugin" />
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
         <param name="onload" value="true" />
     </feature>
     <name>Smoke Media</name>
@@ -50,4 +50,6 @@
     <preference name="HeaderColor" value="#801F2D" />
     <preference name="SplashScreen" value="splash" />
     <preference name="SplashScreenDelay" value="3000" />
+    <preference name="android-minSdkVersion" value="19" />
+    <preference name="android-targetSdkVersion" value="23" />
 </widget>

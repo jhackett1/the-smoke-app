@@ -7,31 +7,31 @@
         "files": {}
     },
     "installed_plugins": {
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
-        },
-        "cordova-plugin-music-controls": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
+        "cordova-disable-http-cache": {
+            "PACKAGE_NAME": "io.smokemedia.smokemedia"
         },
         "cordova-plugin-headercolor": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
+            "PACKAGE_NAME": "io.smokemedia.smokemedia"
+        },
+        "cordova-plugin-music-controls": {
+            "PACKAGE_NAME": "io.smokemedia.smokemedia"
         },
         "cordova-plugin-splashscreen": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
+            "PACKAGE_NAME": "io.smokemedia.smokemedia"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "io.smokemedia.smokemedia"
         },
         "cordova-plugin-x-socialsharing": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
+            "PACKAGE_NAME": "io.smokemedia.smokemedia"
         },
-        "cordova-disable-http-cache": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "io.smokemedia.smokemedia"
         }
     },
     "dependent_plugins": {
         "es6-promise-plugin": {
-            "PACKAGE_NAME": "io.cordova.hellocordova"
+            "PACKAGE_NAME": "io.smokemedia.smokemedia"
         }
     }
 }
